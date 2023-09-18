@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Recommendations</title>
+</head>
+<body>
+    <form action="/" method="post">
+        Enter Order ID: <input type="text" name="order_id">
+        <input type="submit" value="Get Recommendations">
+    </form>
+
+    <h2>Recommendations:</h2>
+    <ul>
+        {% for product in recommendations %}
+            <li>{{ product }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
