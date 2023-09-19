@@ -33,7 +33,7 @@ order_id_to_encoded = dict(zip(data['Order ID'].unique(), range(NUM_ORDERS)))
 product_mapping = dict(enumerate(data['SKU'].astype('category').cat.categories))
 
 # Step 3: Build a Neural Network Model for Recommendations
-EMBEDDING_SIZE = 50
+EMBEDDING_SIZE = 20
 
 input_orders = layers.Input(shape=(1,))
 input_products = layers.Input(shape=(1,))
@@ -48,7 +48,7 @@ model = tf.keras.Model(inputs=[input_orders, input_products], outputs=output)
 model.compile(optimizer='adam', loss='mean_squared_error')
 
 # Step 4: Train the Model
-model.fit([order_ids, product_ids], ratings, epochs=10, batch_size=64, validation_split=0.1)
+model.fit([order_ids, product_ids], ratings, epochs=5, batch_size=64, validation_split=0.1)
 
 # Step 5: Generate Recommendations for a specific Order ID
 def get_recommendations(order_id_str):

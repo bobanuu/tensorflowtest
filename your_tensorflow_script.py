@@ -30,7 +30,7 @@ order_mapping = dict(enumerate(data['Order ID'].astype('category').cat.categorie
 product_mapping = dict(enumerate(data['SKU'].astype('category').cat.categories))
 
 # Step 3: Build a Neural Network Model for Recommendations
-EMBEDDING_SIZE = 50
+EMBEDDING_SIZE = 20
 NUM_ORDERS = len(data['Order ID'].unique())
 NUM_PRODUCTS = len(data['SKU'].unique())
 
