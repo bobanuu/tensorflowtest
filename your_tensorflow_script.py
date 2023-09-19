@@ -2,9 +2,22 @@ import pandas as pd
 import tensorflow as tf
 from tensorflow.keras import layers
 import numpy as np
+import requests
+from io import StringIO
+
+# Function to Load Data from Google Drive
+def load_data_from_gdrive():
+    GOOGLE_DRIVE_FILE_ID = '1eK_XNPECPgsJQTm1z6RtdstvV7fYr_Dx'
+    GOOGLE_DRIVE_DOWNLOAD_URL = f'https://drive.google.com/uc?export=download&id={GOOGLE_DRIVE_FILE_ID}'
+    
+    response = requests.get(GOOGLE_DRIVE_DOWNLOAD_URL)
+    response.raise_for_status()
+
+    csv_content = StringIO(response.text)
+    return pd.read_csv(csv_content)
 
 # Step 1: Load the Data
-data = pd.read_csv("/Users/benjones/Desktop/testmodel/Tensor Flow Testing - Copy of alltime_tensorflowtest.csv")
+data = load_data_from_gdrive()
 
 # Add a rating column (binary for simplicity: 1 if bought)
 data['Rating'] = 1

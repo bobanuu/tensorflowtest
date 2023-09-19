@@ -1,11 +1,24 @@
 from flask import Flask, render_template, request
+import requests
+from io import StringIO
 import pandas as pd
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras import layers
 
+# Function to Load Data from Google Drive
+def load_data_from_gdrive():
+    GOOGLE_DRIVE_FILE_ID = '1eK_XNPECPgsJQTm1z6RtdstvV7fYr_Dx'
+    GOOGLE_DRIVE_DOWNLOAD_URL = f'https://drive.google.com/uc?export=download&id={GOOGLE_DRIVE_FILE_ID}'
+    
+    response = requests.get(GOOGLE_DRIVE_DOWNLOAD_URL)
+    response.raise_for_status()
+
+    csv_content = StringIO(response.text)
+    return pd.read_csv(csv_content)
+
 # Step 1: Load the Data
-data = pd.read_csv("/Users/benjones/Desktop/testmodel/Tensor Flow Testing - Copy of alltime_tensorflowtest.csv")
+data = load_data_from_gdrive()
 data['Rating'] = 1
 
 # Step 2: Preprocess the Data
